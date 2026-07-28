@@ -1,0 +1,63 @@
+:root {
+    --color-bg: black;
+    --color-text: white;
+    --color-accent: #ff80c0;
+}
+
+@font-face {
+    font-family: "Fantasque";
+    src: url("/fonts/Fantasque.ttf");
+}
+
+* {
+    color: var(--color-text);
+    font-family: "Fantasque";
+}
+
+a {
+    color: var(--color-accent);
+
+    &:hover {
+        color: var(--color-text);
+    }
+}
+
+strong,
+em {
+    color: color-mix(in srgb, var(--color-text) 30%, var(--color-accent) 70%);
+}
+
+html,
+body,
+main {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    background-image: url("/images/background.png");
+}
+
+main {
+    background-color: black;
+}
+
+hr {
+    border: none;
+    height: 7px;
+    background: url("/images/star_ruler.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 100%;
+}
+
+.line-ruler {
+    border-top: var(--color-accent) solid 1px;
+    background: none;
+    opacity: 50%;
+}
+
+.small-text {
+    font-size: 80%;
+    opacity: 75%;
+}

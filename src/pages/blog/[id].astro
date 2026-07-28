@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from "astro";
+import BasicPageLayout from "../../layouts/BasicPageLayout.astro";
+import { getCollection, getEntry, render } from "astro:content";
+
+export const getStaticPaths = (async () => {
+    const posts = await getCollection("blog");
+
+    return posts.map((post) => ({
+        params: {
+            id: post.id,
+        },
+    }));
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+const post = await getEntry("blog", id)!;
+const { Content } = await render(post);
+---
+
+<BasicPageLayout
+    pageTitle={post.data.title}
+    description={post.data.description}
+    siteImage={post.data.bannerUrl}
+>
+    <h1 class="mb-0">{post.data.title}</h1>
+    <p class="small-text">on: {post.data.pubDate}</p>
+    <Content />
+</BasicPageLayout>

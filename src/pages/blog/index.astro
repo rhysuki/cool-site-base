@@ -1,0 +1,26 @@
+---
+import BasicPageLayout from "../../layouts/BasicPageLayout.astro";
+import { getCollection } from "astro:content";
+
+function getBlogpostTime(post: any) {
+    const date = new Date(post.data.pubDate + "T12:00:00");
+    return date.getTime();
+}
+
+const blog = await getCollection("blog");
+const posts = [...blog].sort((a, b) => getBlogpostTime(b) - getBlogpostTime(a));
+---
+
+<BasicPageLayout pageTitle="blog" description="my cool blog">
+    <h1>blog</h1>
+    <ul>
+        {
+            posts.map((post: any) => (
+                <li>
+                    <span class="small-text me-2">({post.data.pubDate})</span>
+                    <a href={"/blog/" + post.id}>{post.data.title}</a>
+                </li>
+            ))
+        }
+    </ul>
+</BasicPageLayout>

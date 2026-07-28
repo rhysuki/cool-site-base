@@ -1,0 +1,40 @@
+---
+import "../styles/bootstrap.css";
+import "../styles/main.css";
+import Header from "../components/Header.astro";
+
+const siteUrl = "your site url here";
+const themeColor = "#ff80c0";
+const {
+    pageTitle = "cool site",
+    description = "nikki's cool site base",
+    favicon = "/images/favicon.ico",
+    siteImage = "/images/site_image.png",
+} = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/x-icon" href={favicon} />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={siteImage} />
+        <meta property="og:url" content={siteUrl} />
+        <meta name="theme-color" content={themeColor} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <title>{pageTitle}</title>
+    </head>
+    <body>
+        <main class="container col-12 col-lg-8 p-4">
+            <Header />
+            <hr class="line-ruler mt-0" />
+            <article>
+                <slot />
+            </article>
+        </main>
+    </body>
+</html>
