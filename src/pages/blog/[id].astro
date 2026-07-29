@@ -1,8 +1,22 @@
 ---
+// this is probably the most complicated file in the project.
+//
+// all this mess is in service of automatically routing blogposts to their own
+// pages. the [id].astro name means you'll get the name of whatever page inside
+// /blog is being visited at the moment, and we use that to fetch the blogpost
+// matching the page name.
 import type { GetStaticPaths } from "astro";
 import BasicPageLayout from "../../layouts/BasicPageLayout.astro";
 import { getCollection, getEntry, render } from "astro:content";
 
+// this function is called by Astro to generate a list of premade links based on
+// the "blog" content collection, which contains all the files inside "/src/blogposts."
+//
+// we search through that collection to return the blogpost whose id matches the
+// link we're currently visiting.
+//
+// https://docs.astro.build/en/guides/content-collections/
+// https://docs.astro.build/en/reference/routing-reference/#getstaticpaths
 export const getStaticPaths = (async () => {
     const posts = await getCollection("blog");
 
@@ -14,6 +28,11 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { id } = Astro.params;
+// we fetch the post, prerender it into HTML, and insert it into the page layout,
+// while keeping a variable containing all the data stored in its frontmatter.
+//
+// ...all that so we can do things like insert the post's pubDate in the page.
+// whew!
 const post = await getEntry("blog", id)!;
 const { Content } = await render(post);
 ---

@@ -1,4 +1,7 @@
 ---
+// files inside /src/pages automatically become pages inside the site.
+// since this file is located at /src/pages/blog/index.astro, and files named
+// "index" are landing pages, it'll be reached when we visit yoursite.com/blog.
 import BasicPageLayout from "../../layouts/BasicPageLayout.astro";
 import { getCollection } from "astro:content";
 
@@ -7,13 +10,27 @@ function getBlogpostTime(post: any) {
     return date.getTime();
 }
 
+// all the blogposts inside /src/blogposts are automatically part of an Astro
+// collection. you can get info for all blogposts at once with getCollection,
+// and you have to use "await" since it's an async function.
+//
+// https://docs.astro.build/en/guides/content-collections/
 const blog = await getCollection("blog");
+// then we sort posts by date, descending.
 const posts = [...blog].sort((a, b) => getBlogpostTime(b) - getBlogpostTime(a));
 ---
 
 <BasicPageLayout pageTitle="blog" description="my cool blog">
     <h1>blog</h1>
     <ul>
+        <!--
+        this technically isn't vanilla JavaScript, but a "JSX-like" templating language.
+        this means functions may return templated HTML, or even an array of HTML
+        elements, which can be useful when you're inserting a lot of similar HTML
+        at once, or iterating through a list of items, as we're doing here.
+
+        https://docs.astro.build/en/reference/astro-syntax/
+        -->
         {
             posts.map((post: any) => (
                 <li>
