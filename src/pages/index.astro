@@ -2,6 +2,12 @@
 import BasicPageLayout from "../layouts/BasicPageLayout.astro";
 ---
 
+<!--
+when using a layout, you just import it in the frontmatter and use it basically
+like a regular HTML element, putting the contents of your page inside.
+
+these contents will replace the layout's <slot/> element.
+-->
 <BasicPageLayout>
 	<h1>my cool site</h1>
 	<p>
@@ -18,9 +24,18 @@ import BasicPageLayout from "../layouts/BasicPageLayout.astro";
 		> for an overview of how to use it.
 	</p>
 
+	<!--
+	"text-center" is a bootstrap class that positions elements in the middle of
+	their parent elements (this also goes for images).
+	-->
 	<div class="text-center">
-		<img src="/images/icon_star.gif" />
-		<img src="/images/icon_mascot.png" />
-		<img src="/images/icon_star.gif" />
+		<!--
+		"mw-100" is another one that equates to "max-width: 100%;", which makes
+		the image size down if the viewport becomes to small to fit it (otherwise
+		it'd just overflow off to the side).
+		-->
+		<img class="mw-100" src="/images/icon_star.gif" />
+		<img class="mw-100" src="/images/icon_mascot.png" />
+		<img class="mw-100" src="/images/icon_star.gif" />
 	</div>
 </BasicPageLayout>

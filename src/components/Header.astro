@@ -3,10 +3,39 @@ import "../styles/bootstrap.css";
 import "../styles/main.css";
 ---
 
+<!--
+the header is arranged with Bootstrap classes that apply Flexbox layouting to the
+containing elements. Flexbox is a way to automatically position several elements
+one after another.
+
+in this particular case, the "d-md-flex" and "justify-content-between" classes in
+<header> make it so the <p> tag is moved to the furthest left possible, and <nav>
+goes on the right.
+
+inside <nav>, the "d-flex justify-content-md-end gap-3" means it shoves all items
+as furthest right as it can, with a medium-sized gap.
+
+you don't need to learn about Flexbox for most page elements, but when you have to
+arrange elements in a particular way for different viewports, like a header, a grid
+of images, or a list of links, you'll probably want it.
+
+https://getbootstrap.com/docs/5.3/utilities/flex/
+-->
 <header
     class="fs-4 px-0 py-3 container d-md-flex align-items-center justify-content-between"
 >
     <p class="m-0">coolsite.net</p>
+    <!--
+    we also make use of Bootstrap's breakpoint system to change the layout if the
+    viewport looking at the page gets too small for comfort. this basically just
+    means that some Bootstrap classes are selectively added or removed based on
+    the viewport size.
+
+    "justify-content-md-end" means it'll apply the "justify-content-end" class
+    ONLY when the viewport is medium (md) or bigger.
+
+    https://getbootstrap.com/docs/5.3/layout/breakpoints/
+    -->
     <nav class="d-flex justify-content-md-end gap-3">
         <a href="/">home</a>
         <a href="/blog">blog</a>

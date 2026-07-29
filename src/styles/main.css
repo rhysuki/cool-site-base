@@ -1,4 +1,31 @@
+/*
+this is the default stying applied to all pages on the site; meaning, this is
+the style /src/layouts/BasicPageLayout.astro uses, which it's the layout every
+page uses.
+
+CSS files are made of rules, meaning, a particular selector that tells you that
+some kind of element should have some specific styling.
+
+you can make a rule selecting any kind of HTML element, class and ID, and some
+more complex rules may select specific hierarchies of elements.
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Syntax/Introduction
+*/
 :root {
+    /*
+    to keep the most important values in a single, easily-editable place, we
+    use CSS variables. these can be accessed anywhere with the var() function.
+
+    this also makes it possible for you to swap out these variables for something
+    else. for example, by having a second set of variables and swapping them in only
+    when the <body> element has a `light` class, we could make a light-mode version
+    of the site.
+
+    for this reason, it's a good idea to keep the variable names semantic and
+    "color-agnostic," preferring names like "bg," "text" and "accent" over something
+    like "black," "light" or "pink."
+
+    https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties*/
     --color-bg: black;
     --color-text: white;
     --color-accent: #ff80c0;
@@ -9,6 +36,12 @@
     src: url("/fonts/Fantasque.ttf");
 }
 
+/* "*" is the universal selector that applies to every element on the page.
+we give every element some default styling, then further down the file, we
+can override these defaults for specific elements.
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Universal_selectors
+*/
 * {
     color: var(--color-text);
     font-family: "Fantasque";
@@ -17,6 +50,15 @@
 a {
     color: var(--color-accent);
 
+    /* :hover is a pseudo-class that matches an element only when you hover your
+    mouse over an element.
+
+    also, this uses nested properties to make the code a little more concise. in
+    this case, "&:hover" would be equivalent to "a:hover."
+
+    https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:hover
+    https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Nesting/Using
+    */
     &:hover {
         color: var(--color-text);
     }
@@ -51,6 +93,15 @@ hr {
     opacity: 100%;
 }
 
+/*
+rules starting with a period "." apply to HTML classes. meaning, this rule will
+apply to any HTML element with the class="line-ruler" attribute.
+
+you may also see a rule that starts with a hash #. this selects elements with a
+specific ID, which are meant to be unique across the entire page.
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Class_selectors
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/ID_selectors
+*/
 .line-ruler {
     border-top: var(--color-accent) solid 1px;
     background: none;

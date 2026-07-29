@@ -1,10 +1,27 @@
 ---
+// this is the layout most pages use. it's just an HTML page shell with some standard
+// information about itself, then a <slot/> element in the middle that gets replaced
+// with the actual contents of the page when you use it as a layout.
+// https://docs.astro.build/en/basics/layouts/
+
+// importing stylesheets like this applies them to the whole file, which is more
+// convenient than using HTML's <link> tag.
+// https://docs.astro.build/en/guides/styling/#import-a-local-stylesheet
 import "../styles/bootstrap.css";
 import "../styles/main.css";
 import Header from "../components/Header.astro";
 
 const siteUrl = "your site url here";
 const themeColor = "#ff80c0";
+
+// we receive Astro props (properties) to potentially change the behavior or content
+// of the layout every time we use it.
+// https://docs.astro.build/en/basics/astro-components/#component-props
+//
+// Astro.props is a regular JavaScript object. we just use this particular destructuring
+// syntax to get the variables out of it more easily. you could just as easily write
+// something like Astro.props.pageTitle for the same effect.
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring
 const {
     pageTitle = "cool site",
     description = "nikki's cool site base",
@@ -29,6 +46,20 @@ const {
         <title>{pageTitle}</title>
     </head>
     <body>
+        <!--
+        a lot of HTML tags do similar things but have different semantic meanings.
+        <main> and <article> behave identically do a <div> (the basic generic building-block
+        "divider" element), but convey the meaning of "this is the site's main content,"
+        "this is the site's article, which could be read separately," etc.
+
+        this makes the HTML more machine-readable, which is useful for both assistive
+        technology like screen readers, and indexing engines like Google.
+
+        an added benefit is that it makes it easier to pick out specific elements
+        with CSS selectors without needing to use classes and identifiers.
+
+        https://www.w3schools.com/html/html5_semantic_elements.asp
+        -->
         <main class="container col-12 col-lg-8 p-4">
             <Header />
             <hr class="line-ruler mt-0" />
